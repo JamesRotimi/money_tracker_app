@@ -26,7 +26,7 @@ TransactionList(this.transactions);
                       ),
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        '\$${transactions[index].amount.toStringAsFixed(2)}',
+                        '\$${transactions[index].amount.toStringAsFixed(2)}', // this ensures that all numbers received will be fixed with 2 decimal places.
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -35,7 +35,7 @@ TransactionList(this.transactions);
                       ),
                     ),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start, // this aligns the title to be positioned at the start i.e left
                       children: <Widget>[
                         Text(
                           transactions[index].title,

@@ -5,15 +5,15 @@ class NewTransaction extends StatelessWidget {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
-  NewTransaction(this.addTx);
+  NewTransaction(this.addTx); // constructor
 
   void submitData (){
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
 
-
+    //validator to ensure title and amount field is populated
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
-      return;
+      return; // if both or one field is empty a transaction will not be added to list
     }
 
       addTx(enteredTitle,enteredAmount);
@@ -39,7 +39,7 @@ class NewTransaction extends StatelessWidget {
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
               keyboardType: TextInputType.number,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => submitData(), // this allows the keyboard (tick button) to add a new transaction to the list
 //                    onChanged: (val) {
 //                      amountInput = val;
 //                    },
