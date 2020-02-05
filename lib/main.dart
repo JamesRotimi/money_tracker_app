@@ -10,7 +10,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      title: 'Flutter',
+      title: 'Personal Expenses',
+      theme: ThemeData(
+          primarySwatch: Colors.grey,
+          accentColor: Colors.green,
+          fontFamily: 'Quicksand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+                title: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+          appBarTheme: AppBarTheme(
+            textTheme: ThemeData.light().textTheme.copyWith(
+                    title: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                )),
+          )),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
@@ -52,10 +71,10 @@ class _MyHomePageState extends State<MyHomePage> {
         context: ctx,
         builder: (_) {
           return GestureDetector(
-           onTap: () {},
-           child: NewTransaction(_addNewTransaction),
+            onTap: () {},
+            child: NewTransaction(_addNewTransaction),
             behavior: HitTestBehavior.opaque,
-           );
+          );
         });
   }
 
@@ -91,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () => _startAddNewTransaction(context)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
