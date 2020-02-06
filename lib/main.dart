@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_tracker_app/Widgets/chart.dart';
 import 'package:money_tracker_app/Widgets/new_transaction.dart';
 import 'package:money_tracker_app/Widgets/transaction_list.dart';
 import './models/transaction.dart';
@@ -54,6 +55,14 @@ class _MyHomePageState extends State<MyHomePage> {
 //        id: 'r2', title: 'Macdonalds', amount: 16.53, date: DateTime.now()),
   ];
 
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
+    }).toList();
+  }
+
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
         title: txTitle,
@@ -95,14 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
           //mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              width: double.maxFinite,
-              child: Card(
-                color: Colors.green,
-                child: Text('Chart!'),
-                elevation: 5,
-              ),
-            ),
+            Chart(_recentTransactions),
             TransactionList(_userTransactions),
           ],
         ),
