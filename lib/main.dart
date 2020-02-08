@@ -13,14 +13,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
-          primarySwatch: Colors.grey,
+          primarySwatch: Colors.yellow,
           accentColor: Colors.green,
           fontFamily: 'Quicksand',
           textTheme: ThemeData.light().textTheme.copyWith(
                 title: TextStyle(
+                  decorationColor: Colors.black,
                   fontFamily: 'OpenSans',
-                  fontSize: 16,
                   fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
               ),
           appBarTheme: AppBarTheme(
@@ -75,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _startAddNewTransaction(BuildContext ctx) {
+  void _startAddNewTransaction(BuildContext ctx) {  // pop up for keyboard when adding a new trasaction
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
@@ -91,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow,
+        backgroundColor: Colors.lightBlueAccent,
         title: Text('Money App'),
         actions: <Widget>[
           IconButton(
