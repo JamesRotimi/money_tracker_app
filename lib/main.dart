@@ -54,6 +54,14 @@ class _MyHomePageState extends State<MyHomePage> {
 //        id: 'r1', title: 'Trainers', amount: 69.99, date: DateTime.now()),
 //    Transaction(
 //        id: 'r2', title: 'Macdonalds', amount: 16.53, date: DateTime.now()),
+//    Transaction(
+//        id: 'r3', title: 'Traers', amount: 69.99, date: DateTime.now()),
+//    Transaction(
+//        id: 'r4', title: 'Macdalds', amount: 16.53, date: DateTime.now()),
+//    Transaction(
+//        id: 'r5', title: 'Trainers', amount: 69.99, date: DateTime.now()),
+//    Transaction(
+//        id: 'r6', title: 'Macdonalds', amount: 16.53, date: DateTime.now()),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -64,11 +72,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(String txTitle, double txAmount,
+      DateTime chosenDate) {
     final newTx = Transaction(
         title: txTitle,
         amount: txAmount,
-        date: DateTime.now(),
+        date: chosenDate,
         id: DateTime.now().toString());
 
     setState(() {
@@ -76,44 +85,51 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _startAddNewTransaction(BuildContext ctx) {  // pop up for keyboard when adding a new trasaction
-    showModalBottomSheet(
-        context: ctx,
-        builder: (_) {
-          return GestureDetector(
-            onTap: () {},
-            child: NewTransaction(_addNewTransaction),
-            behavior: HitTestBehavior.opaque,
-          );
-        });
+   _deleteTransaction(String id) {// in our model we define id
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id);
+    });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.lightBlueAccent,
-        title: Text('Money App'),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => _startAddNewTransaction(context)),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions),
+    void _startAddNewTransaction(BuildContext ctx) {
+      // pop up for keyboard when adding a new transaction
+      showModalBottomSheet(
+          context: ctx,
+          builder: (_) {
+            return GestureDetector(
+              onTap: () {},
+              child: NewTransaction(_addNewTransaction),
+              behavior: HitTestBehavior.opaque,
+            );
+          });
+    }// set up the buttons
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.lightBlueAccent,
+          title: Text('Money App'),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () => _startAddNewTransaction(context)),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => _startAddNewTransaction(context)),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
+        body: SingleChildScrollView(
+          child: Column(
+            //mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Chart(_recentTransactions),
+              TransactionList(_userTransactions, _deleteTransaction),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () => _startAddNewTransaction(context)),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      );
+    }
   }
-}
